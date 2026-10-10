@@ -1,0 +1,2253 @@
+-- generated using SL | Source Leak
+-- https://discord.gg/x7YbZeezpm
+
+getgenv().__CokeboysPVPLaunchJobId = tostring(game.JobId)
+
+local function func1(param1, param2)
+	if os.clock() >= param2 then
+		return false, nil, true
+	end
+	local flag1 = false
+	local value1 = nil
+	local value2 = nil
+
+	local thread = task.spawn(function()
+		local ok, result = pcall(param1)
+		if flag1 then
+			return
+		end
+		value1 = ok
+		value2 = result
+		flag1 = true
+	end)
+
+	while not flag1 do
+		if param2 <= os.clock() then
+			flag1 = true
+			pcall(task.cancel, thread)
+			return false, nil, true
+		end
+
+		task.wait(0.05)
+	end
+
+	return value1, value2, false
+end
+
+local function func2(flag2)
+	if type(flag2) == "string" and flag2 ~= "" then
+		return flag2
+	end
+
+	if type(flag2) ~= "table" then
+		return nil
+	end
+	local statusCode = flag2.StatusCode
+
+	if statusCode == nil then
+		statusCode = flag2.status_code
+	end
+
+	if statusCode == nil then
+		statusCode = flag2.Status
+	end
+
+	if statusCode == nil then
+		statusCode = flag2.status
+	end
+
+	if statusCode ~= nil then
+		local num1 = tonumber(statusCode)
+		if not num1 or num1 < 200 or num1 >= 300 then
+			return nil
+		end
+	end
+
+	local body = flag2.Body or flag2.body
+	if type(body) == "string" and body ~= "" then
+		return body
+	end
+	return nil
+end
+
+local function func3(...) end
+
+local function func4()
+	error("SL: this block could not be recovered")
+end
+
+local function func5()
+	error("SL: this block could not be recovered")
+end
+
+local function func6(r)local X,V=pcall(readfile,r);if X then return V;end;return nil;end
+local function func7(r,X)if type(writefile)~="function"then return false;end;local V,N=pcall(writefile,r,X);return V and N~=false;end
+local function func8(...) end
+local tbl1 = { lite = true, full = true }
+-- more leaks: https://discord.gg/x7YbZeezpm
+
+local function func9()
+	local json = func6("CokeboysLoader_v1.json")
+	if type(json) ~= "string" or json == "" then
+		return nil, "missing"
+	end
+
+	local ok, result = pcall(function()
+		return game:GetService("HttpService"):JSONDecode(json)
+	end)
+
+	if not ok or type(result) ~= "table" then
+		return nil, "corrupt"
+	end
+
+	if result.version ~= 1 or type(result.rememberExperience) ~= "boolean" or not tbl1[result.experience] then
+		return nil, "invalid"
+	end
+	return { version = 1, rememberExperience = result.rememberExperience, experience = result.experience }, nil
+end
+
+local function func10(param3, flag3)
+	if not tbl1[param3] then
+		return false
+	end
+
+	local ok, result = pcall(function()
+		return game:GetService("HttpService"):JSONEncode({ version = 1, rememberExperience = flag3 == true, experience = param3 })
+	end)
+
+	if not ok then
+		return false
+	end
+	local ok2, result2 = pcall(writefile, "CokeboysLoader_v1.json", result)
+	return ok2 and result2 ~= false
+end
+
+local function func11()
+	local flag4 = false
+
+	pcall(function()
+		local UserInputService = game:GetService("UserInputService")
+		flag4 = UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift)
+	end)
+
+	return flag4
+end
+
+local cokeboysLanguageOptions = {
+	{ code = "Auto", name = "Auto Detect" },
+	{ code = "English", name = "English" },
+	{ code = "Spanish", name = "Español" },
+	{ code = "Portuguese", name = "Português (Brasil)" },
+	{ code = "French", name = "Français" },
+	{ code = "Vietnamese", name = "Tiếng Việt" },
+	{ code = "Indonesian", name = "Bahasa Indonesia" },
+	{ code = "Filipino", name = "Filipino" },
+}
+
+local tbl2 = {}
+
+for _, cokeboysLanguageOption in ipairs(cokeboysLanguageOptions) do
+	tbl2[cokeboysLanguageOption.code] = cokeboysLanguageOption.name
+end
+
+local tbl3 = {
+	Spanish = {
+		["Select the experience you want to use."] = "Selecciona la experiencia que quieres usar.",
+		["Enter your access key to continue"] = "Introduce tu clave de acceso para continuar",
+		["Enter your access key to continue to Cokeboys."] = "Introduce tu clave de acceso para continuar a Cokeboys.",
+		["Access key"] = "Clave de acceso",
+		["Get Key"] = "Obtener clave",
+		["Click Here to Get a Key"] = "Haz clic aquí para obtener una clave",
+		["Join Discord"] = "Únete a Discord",
+		Language = "Idioma",
+		Close = "Cerrar",
+		["Key accepted"] = "Clave aceptada",
+		["Connection unavailable. Try again."] = "Conexión no disponible. Inténtalo de nuevo.",
+		["Unable to verify key. Try again."] = "No se pudo verificar la clave. Inténtalo de nuevo.",
+		["Preparing Cokeboys..."] = "Preparando Cokeboys...",
+		["Clipboard unavailable"] = "Portapapeles no disponible",
+		["<b>NEED ACCESS?</b>\nClick the key button to generate your own access key."] = "<b>¿NECESITAS ACCESO?</b>\nPulsa el botón de clave para generar tu propia clave.",
+		["ACCESS KEY"] = "CLAVE DE ACCESO",
+		["Validate Key"] = "Validar clave",
+		["Get-key link copied!"] = "¡Enlace de clave copiado!",
+		["Discord invite copied!"] = "¡Invitación de Discord copiada!",
+		["Please enter a key"] = "Introduce una clave",
+		["Beta key retired - use Get a Key below"] = "La clave beta fue retirada; obtén una nueva abajo",
+		["Checking..."] = "Comprobando...",
+		["Invalid key"] = "Clave no válida",
+		Home = "Inicio",
+		Movement = "Movimiento",
+		Glitches = "Glitches",
+		Aim = "Apuntado",
+		Visuals = "Visuales",
+		Combat = "Combate",
+		Blacklist = "Lista negra",
+		Exclude = "Excluir",
+		Misc = "Varios",
+		Macro = "Macro",
+		Mobile = "Móvil",
+		["Skin Changer"] = "Cambiador de aspectos",
+		Shop = "Tienda",
+		Client = "Cliente",
+		Key = "Clave",
+		Appearance = "Apariencia",
+		Settings = "Ajustes",
+		Keybinds = "Teclas",
+		CONTROLS = "CONTROLES",
+		ACTIONS = "ACCIONES",
+		VISIBILITY = "VISIBILIDAD",
+		MODE = "MODO",
+		RESET = "RESTABLECER",
+		["Enable Skin Changer"] = "Activar cambiador de aspectos",
+		["RGB Cycle"] = "Ciclo RGB",
+		["Preset Color"] = "Color predefinido",
+		["Indicator Color"] = "Color del indicador",
+		["Button Color"] = "Color del botón",
+		Save = "Guardar",
+		Cancel = "Cancelar",
+		["Pick a Color"] = "Elegir un color",
+		["Selected: "] = "Seleccionado: ",
+	},
+	Portuguese = {
+		["Select the experience you want to use."] = "Selecione a experiência que deseja usar.",
+		["Enter your access key to continue"] = "Insira sua chave de acesso para continuar",
+		["Enter your access key to continue to Cokeboys."] = "Digite sua chave de acesso para continuar no Cokeboys.",
+		["Access key"] = "Chave de acesso",
+		["Get Key"] = "Obter chave",
+		["Click Here to Get a Key"] = "Clique aqui para obter uma chave",
+		["Join Discord"] = "Entrar no Discord",
+		Language = "Idioma",
+		Close = "Fechar",
+		["Key accepted"] = "Chave aceita",
+		["Connection unavailable. Try again."] = "Conexão indisponível. Tente novamente.",
+		["Unable to verify key. Try again."] = "Não foi possível verificar a chave. Tente novamente.",
+		["Preparing Cokeboys..."] = "Preparando Cokeboys...",
+		["Clipboard unavailable"] = "Área de transferência indisponível",
+		["<b>NEED ACCESS?</b>\nClick the key button to generate your own access key."] = "<b>PRECISA DE ACESSO?</b>\nClique no botão de chave para gerar sua própria chave.",
+		["ACCESS KEY"] = "CHAVE DE ACESSO",
+		["Validate Key"] = "Validar chave",
+		["Get-key link copied!"] = "Link da chave copiado!",
+		["Discord invite copied!"] = "Convite do Discord copiado!",
+		["Please enter a key"] = "Insira uma chave",
+		["Beta key retired - use Get a Key below"] = "A chave beta foi removida; obtenha uma nova abaixo",
+		["Checking..."] = "Verificando...",
+		["Invalid key"] = "Chave inválida",
+		Home = "Início",
+		Movement = "Movimento",
+		Glitches = "Glitches",
+		Aim = "Mira",
+		Visuals = "Visuais",
+		Combat = "Combate",
+		Blacklist = "Lista negra",
+		Exclude = "Excluir",
+		Misc = "Diversos",
+		Macro = "Macro",
+		Mobile = "Celular",
+		["Skin Changer"] = "Alterador de skins",
+		Shop = "Loja",
+		Client = "Cliente",
+		Key = "Chave",
+		Appearance = "Aparência",
+		Settings = "Configurações",
+		Keybinds = "Teclas",
+		CONTROLS = "CONTROLES",
+		ACTIONS = "AÇÕES",
+		VISIBILITY = "VISIBILIDADE",
+		MODE = "MODO",
+		RESET = "REDEFINIR",
+		["Enable Skin Changer"] = "Ativar alterador de skins",
+		["RGB Cycle"] = "Ciclo RGB",
+		["Preset Color"] = "Cor predefinida",
+		["Indicator Color"] = "Cor do indicador",
+		["Button Color"] = "Cor do botão",
+		Save = "Salvar",
+		Cancel = "Cancelar",
+		["Pick a Color"] = "Escolha uma cor",
+		["Selected: "] = "Selecionado: ",
+	},
+	French = {
+		["Select the experience you want to use."] = "Sélectionnez l’expérience que vous souhaitez utiliser.",
+		["Enter your access key to continue"] = "Entrez votre clé d’accès pour continuer",
+		["Enter your access key to continue to Cokeboys."] = "Entrez votre clé d’accès pour continuer vers Cokeboys.",
+		["Access key"] = "Clé d’accès",
+		["Get Key"] = "Obtenir une clé",
+		["Click Here to Get a Key"] = "Cliquez ici pour obtenir une clé",
+		["Join Discord"] = "Rejoindre Discord",
+		Language = "Langue",
+		Close = "Fermer",
+		["Key accepted"] = "Clé acceptée",
+		["Connection unavailable. Try again."] = "Connexion indisponible. Réessayez.",
+		["Unable to verify key. Try again."] = "Impossible de vérifier la clé. Réessayez.",
+		["Preparing Cokeboys..."] = "Préparation de Cokeboys...",
+		["Clipboard unavailable"] = "Presse-papiers indisponible",
+		["<b>NEED ACCESS?</b>\nClick the key button to generate your own access key."] = "<b>BESOIN D'ACCÈS ?</b>\nCliquez sur le bouton de clé pour générer votre clé.",
+		["ACCESS KEY"] = "CLÉ D'ACCÈS",
+		["Validate Key"] = "Valider la clé",
+		["Get-key link copied!"] = "Lien de clé copié !",
+		["Discord invite copied!"] = "Invitation Discord copiée !",
+		["Please enter a key"] = "Veuillez entrer une clé",
+		["Beta key retired - use Get a Key below"] = "La clé bêta a été retirée ; obtenez-en une nouvelle ci-dessous",
+		["Checking..."] = "Vérification...",
+		["Invalid key"] = "Clé invalide",
+		Home = "Accueil",
+		Movement = "Mouvement",
+		Glitches = "Glitches",
+		Aim = "Visée",
+		Visuals = "Visuels",
+		Combat = "Combat",
+		Blacklist = "Liste noire",
+		Exclude = "Exclure",
+		Misc = "Divers",
+		Macro = "Macro",
+		Mobile = "Mobile",
+		["Skin Changer"] = "Changeur d'effets",
+		Shop = "Boutique",
+		Client = "Client",
+		Key = "Clé",
+		Appearance = "Apparence",
+		Settings = "Paramètres",
+		Keybinds = "Raccourcis",
+		CONTROLS = "COMMANDES",
+		ACTIONS = "ACTIONS",
+		VISIBILITY = "VISIBILITÉ",
+		MODE = "MODE",
+		RESET = "RÉINITIALISER",
+		["Enable Skin Changer"] = "Activer le changeur d'effets",
+		["RGB Cycle"] = "Cycle RGB",
+		["Preset Color"] = "Couleur prédéfinie",
+		["Indicator Color"] = "Couleur de l'indicateur",
+		["Button Color"] = "Couleur du bouton",
+		Save = "Enregistrer",
+		Cancel = "Annuler",
+		["Pick a Color"] = "Choisir une couleur",
+		["Selected: "] = "Sélectionné : ",
+	},
+	Vietnamese = {
+		["Select the experience you want to use."] = "Chọn trải nghiệm bạn muốn sử dụng.",
+		["Enter your access key to continue"] = "Nhập key truy cập để tiếp tục",
+		["Enter your access key to continue to Cokeboys."] = "Nhập mã truy cập để tiếp tục đến Cokeboys.",
+		["Access key"] = "Key truy cập",
+		["Get Key"] = "Lấy key",
+		["Click Here to Get a Key"] = "Nhấn vào đây để lấy key",
+		["Join Discord"] = "Tham gia Discord",
+		Language = "Ngôn ngữ",
+		Close = "Đóng",
+		["Key accepted"] = "Key được chấp nhận",
+		["Connection unavailable. Try again."] = "Không thể kết nối. Hãy thử lại.",
+		["Unable to verify key. Try again."] = "Không thể xác minh key. Hãy thử lại.",
+		["Preparing Cokeboys..."] = "Đang chuẩn bị Cokeboys...",
+		["Clipboard unavailable"] = "Không có bộ nhớ tạm",
+		["<b>NEED ACCESS?</b>\nClick the key button to generate your own access key."] = "<b>CẦN QUYỀN TRUY CẬP?</b>\nNhấn nút key để tạo key truy cập của bạn.",
+		["ACCESS KEY"] = "KEY TRUY CẬP",
+		["Validate Key"] = "Xác thực key",
+		["Get-key link copied!"] = "Đã sao chép liên kết lấy key!",
+		["Discord invite copied!"] = "Đã sao chép lời mời Discord!",
+		["Please enter a key"] = "Vui lòng nhập key",
+		["Beta key retired - use Get a Key below"] = "Key beta đã bị gỡ; hãy lấy key mới bên dưới",
+		["Checking..."] = "Đang kiểm tra...",
+		["Invalid key"] = "Key không hợp lệ",
+		Home = "Trang chủ",
+		Movement = "Di chuyển",
+		Glitches = "Kỹ thuật",
+		Aim = "Ngắm",
+		Visuals = "Hiển thị",
+		Combat = "Chiến đấu",
+		Blacklist = "Danh sách đen",
+		Exclude = "Loại trừ",
+		Misc = "Khác",
+		Macro = "Macro",
+		Mobile = "Di động",
+		["Skin Changer"] = "Đổi hiệu ứng",
+		Shop = "Cửa hàng",
+		Client = "Máy khách",
+		Key = "Key",
+		Appearance = "Giao diện",
+		Settings = "Cài đặt",
+		Keybinds = "Phím tắt",
+		CONTROLS = "ĐIỀU KHIỂN",
+		ACTIONS = "THAO TÁC",
+		VISIBILITY = "HIỂN THỊ",
+		MODE = "CHẾ ĐỘ",
+		RESET = "ĐẶT LẠI",
+		["Enable Skin Changer"] = "Bật đổi hiệu ứng",
+		["RGB Cycle"] = "Chu kỳ RGB",
+		["Preset Color"] = "Màu có sẵn",
+		["Indicator Color"] = "Màu chỉ báo",
+		["Button Color"] = "Màu nút",
+		Save = "Lưu",
+		Cancel = "Hủy",
+		["Pick a Color"] = "Chọn màu",
+		["Selected: "] = "Đã chọn: ",
+	},
+	Indonesian = {
+		["Select the experience you want to use."] = "Pilih pengalaman yang ingin Anda gunakan.",
+		["Enter your access key to continue"] = "Masukkan key akses untuk melanjutkan",
+		["Enter your access key to continue to Cokeboys."] = "Masukkan kunci akses untuk melanjutkan ke Cokeboys.",
+		["Access key"] = "Key akses",
+		["Get Key"] = "Dapatkan key",
+		["Click Here to Get a Key"] = "Klik di sini untuk mendapatkan key",
+		["Join Discord"] = "Gabung Discord",
+		Language = "Bahasa",
+		Close = "Tutup",
+		["Key accepted"] = "Key diterima",
+		["Connection unavailable. Try again."] = "Koneksi tidak tersedia. Coba lagi.",
+		["Unable to verify key. Try again."] = "Key tidak dapat diverifikasi. Coba lagi.",
+		["Preparing Cokeboys..."] = "Menyiapkan Cokeboys...",
+		["Clipboard unavailable"] = "Papan klip tidak tersedia",
+		["<b>NEED ACCESS?</b>\nClick the key button to generate your own access key."] = "<b>BUTUH AKSES?</b>\nKlik tombol key untuk membuat key akses milikmu.",
+		["ACCESS KEY"] = "KEY AKSES",
+		["Validate Key"] = "Validasi key",
+		["Get-key link copied!"] = "Tautan key disalin!",
+		["Discord invite copied!"] = "Undangan Discord disalin!",
+		["Please enter a key"] = "Silakan masukkan key",
+		["Beta key retired - use Get a Key below"] = "Key beta dihentikan; dapatkan key baru di bawah",
+		["Checking..."] = "Memeriksa...",
+		["Invalid key"] = "Key tidak valid",
+		Home = "Beranda",
+		Movement = "Gerakan",
+		Glitches = "Glitch",
+		Aim = "Bidikan",
+		Visuals = "Visual",
+		Combat = "Pertarungan",
+		Blacklist = "Daftar hitam",
+		Exclude = "Kecualikan",
+		Misc = "Lainnya",
+		Macro = "Makro",
+		Mobile = "Seluler",
+		["Skin Changer"] = "Pengubah efek",
+		Shop = "Toko",
+		Client = "Klien",
+		Key = "Key",
+		Appearance = "Tampilan",
+		Settings = "Pengaturan",
+		Keybinds = "Tombol pintas",
+		CONTROLS = "KONTROL",
+		ACTIONS = "TINDAKAN",
+		VISIBILITY = "VISIBILITAS",
+		MODE = "MODE",
+		RESET = "ATUR ULANG",
+		["Enable Skin Changer"] = "Aktifkan pengubah efek",
+		["RGB Cycle"] = "Siklus RGB",
+		["Preset Color"] = "Warna preset",
+		["Indicator Color"] = "Warna indikator",
+		["Button Color"] = "Warna tombol",
+		Save = "Simpan",
+		Cancel = "Batal",
+		["Pick a Color"] = "Pilih warna",
+		["Selected: "] = "Dipilih: ",
+	},
+	Filipino = {
+		["Select the experience you want to use."] = "Piliin ang experience na gusto mong gamitin.",
+		["Enter your access key to continue"] = "Ilagay ang access key mo upang magpatuloy",
+		["Enter your access key to continue to Cokeboys."] = "Ilagay ang iyong access key para magpatuloy sa Cokeboys.",
+		["Access key"] = "Access key",
+		["Get Key"] = "Kumuha ng key",
+		["Click Here to Get a Key"] = "Mag-click dito para kumuha ng key",
+		["Join Discord"] = "Sumali sa Discord",
+		Language = "Wika",
+		Close = "Isara",
+		["Key accepted"] = "Tinanggap ang key",
+		["Connection unavailable. Try again."] = "Walang koneksyon. Subukan muli.",
+		["Unable to verify key. Try again."] = "Hindi ma-verify ang key. Subukan muli.",
+		["Preparing Cokeboys..."] = "Inihahanda ang Cokeboys...",
+		["Clipboard unavailable"] = "Hindi available ang clipboard",
+		["<b>NEED ACCESS?</b>\nClick the key button to generate your own access key."] = "<b>KAILANGAN NG ACCESS?</b>\nI-click ang key button para gumawa ng sarili mong access key.",
+		["ACCESS KEY"] = "ACCESS KEY",
+		["Validate Key"] = "I-validate ang key",
+		["Get-key link copied!"] = "Nakopya ang link para sa key!",
+		["Discord invite copied!"] = "Nakopya ang Discord invite!",
+		["Please enter a key"] = "Mangyaring maglagay ng key",
+		["Beta key retired - use Get a Key below"] = "Itinigil na ang beta key; kumuha ng bagong key sa ibaba",
+		["Checking..."] = "Sinusuri...",
+		["Invalid key"] = "Hindi wastong key",
+		Home = "Home",
+		Movement = "Paggalaw",
+		Glitches = "Glitches",
+		Aim = "Pagpuntirya",
+		Visuals = "Mga Visual",
+		Combat = "Labanan",
+		Blacklist = "Blacklist",
+		Exclude = "Ibukod",
+		Misc = "Iba pa",
+		Macro = "Macro",
+		Mobile = "Mobile",
+		["Skin Changer"] = "Skin Changer",
+		Shop = "Tindahan",
+		Client = "Client",
+		Key = "Key",
+		Appearance = "Hitsura",
+		Settings = "Mga Setting",
+		Keybinds = "Mga Keybind",
+		CONTROLS = "MGA CONTROL",
+		ACTIONS = "MGA AKSYON",
+		VISIBILITY = "PAGKAKAKITA",
+		MODE = "MODE",
+		RESET = "I-RESET",
+		["Enable Skin Changer"] = "I-enable ang Skin Changer",
+		["RGB Cycle"] = "RGB Cycle",
+		["Preset Color"] = "Preset na Kulay",
+		["Indicator Color"] = "Kulay ng Indicator",
+		["Button Color"] = "Kulay ng Button",
+		Save = "I-save",
+		Cancel = "Kanselahin",
+		["Pick a Color"] = "Pumili ng Kulay",
+		["Selected: "] = "Napili: ",
+	},
+}
+
+for k, value3 in pairs({
+	Spanish = {
+		["Choose Your Cokeboys Experience"] = "Elige tu experiencia Cokeboys",
+		["Select the experience that fits how you play."] = "Selecciona la experiencia que mejor se adapte a tu forma de jugar.",
+		["Full Experience"] = "Experiencia Completa",
+		["Core Experience"] = "Experiencia Esencial",
+		["The complete Cokeboys experience."] = "La experiencia completa de Cokeboys.",
+		["A simple, focused Cokeboys experience."] = "Una experiencia Cokeboys sencilla y enfocada.",
+		["Classic Experience"] = "Experiencia clásica",
+		["Essential Features"] = "Funciones esenciales",
+		["Streamlined Interface"] = "Interfaz optimizada",
+		["Faster Setup"] = "Configuración más rápida",
+		["Launch Full"] = "Iniciar Full",
+		["Launch Core"] = "Iniciar Core",
+		["Choose Your Experience"] = "Elige tu experiencia",
+		["You can change this again later."] = "Podrás cambiar esto más adelante.",
+		Lite = "Lite",
+		Full = "Full",
+		Recommended = "Recomendado",
+		["Core Features"] = "Funciones principales",
+		["Simpler Interface"] = "Interfaz más sencilla",
+		["Easier to Use"] = "Más fácil de usar",
+		["All Features"] = "Todas las funciones",
+		["Advanced Controls"] = "Controles avanzados",
+		["Full Customization"] = "Personalización completa",
+		["Load Lite"] = "Cargar Lite",
+		["Load Full"] = "Cargar Full",
+		["Remember and skip this screen next time"] = "Recordar y omitir esta pantalla la próxima vez",
+		["Choose how you want Cokeboys to run. You can change this later in Settings."] = "Elige cómo quieres usar Cokeboys. Puedes cambiarlo más tarde en Ajustes.",
+		["Existing / Classic Experience"] = "Experiencia existente / clásica",
+		["Preparing Lite..."] = "Preparando Lite...",
+		["Preparing Full..."] = "Preparando Full...",
+		["Preference could not be saved"] = "No se pudo guardar la preferencia",
+		["Verifying key..."] = "Verificando clave...",
+		["Starting %s..."] = "Iniciando %s...",
+		["Cleanup could not be verified. Re-execute Cokeboys to continue."] = "No se pudo verificar la limpieza. Vuelve a ejecutar Cokeboys para continuar.",
+	},
+	Portuguese = {
+		["Choose Your Cokeboys Experience"] = "Escolha sua experiência Cokeboys",
+		["Select the experience that fits how you play."] = "Selecione a experiência que combina com seu jeito de jogar.",
+		["Full Experience"] = "Experiência Completa",
+		["Core Experience"] = "Experiência Essencial",
+		["The complete Cokeboys experience."] = "A experiência Cokeboys completa.",
+		["A simple, focused Cokeboys experience."] = "Uma experiência Cokeboys simples e focada.",
+		["Classic Experience"] = "Experiência clássica",
+		["Essential Features"] = "Recursos essenciais",
+		["Streamlined Interface"] = "Interface otimizada",
+		["Faster Setup"] = "Configuração mais rápida",
+		["Launch Full"] = "Iniciar Full",
+		["Launch Core"] = "Iniciar Core",
+		["Choose Your Experience"] = "Escolha sua experiência",
+		["You can change this again later."] = "Você poderá alterar isso mais tarde.",
+		Lite = "Lite",
+		Full = "Full",
+		Recommended = "Recomendado",
+		["Core Features"] = "Recursos principais",
+		["Simpler Interface"] = "Interface mais simples",
+		["Easier to Use"] = "Mais fácil de usar",
+		["All Features"] = "Todos os recursos",
+		["Advanced Controls"] = "Controles avançados",
+		["Full Customization"] = "Personalização completa",
+		["Load Lite"] = "Carregar Lite",
+		["Load Full"] = "Carregar Full",
+		["Remember and skip this screen next time"] = "Lembrar e pular esta tela na próxima vez",
+		["Choose how you want Cokeboys to run. You can change this later in Settings."] = "Escolha como deseja usar o Cokeboys. Você pode alterar isso depois em Configurações.",
+		["Existing / Classic Experience"] = "Experiência existente / clássica",
+		["Preparing Lite..."] = "Preparando Lite...",
+		["Preparing Full..."] = "Preparando Full...",
+		["Preference could not be saved"] = "Não foi possível salvar a preferência",
+		["Verifying key..."] = "Verificando a chave...",
+		["Starting %s..."] = "Iniciando %s...",
+		["Cleanup could not be verified. Re-execute Cokeboys to continue."] = "Não foi possível verificar a limpeza. Execute o Cokeboys novamente para continuar.",
+	},
+	French = {
+		["Choose Your Cokeboys Experience"] = "Choisissez votre expérience Cokeboys",
+		["Select the experience that fits how you play."] = "Sélectionnez l’expérience adaptée à votre façon de jouer.",
+		["Full Experience"] = "Expérience Complète",
+		["Core Experience"] = "Expérience Essentielle",
+		["The complete Cokeboys experience."] = "L’expérience Cokeboys complète.",
+		["A simple, focused Cokeboys experience."] = "Une expérience Cokeboys simple et ciblée.",
+		["Classic Experience"] = "Expérience classique",
+		["Essential Features"] = "Fonctions essentielles",
+		["Streamlined Interface"] = "Interface optimisée",
+		["Faster Setup"] = "Configuration plus rapide",
+		["Launch Full"] = "Lancer Full",
+		["Launch Core"] = "Lancer Core",
+		["Choose Your Experience"] = "Choisissez votre expérience",
+		["You can change this again later."] = "Vous pourrez modifier ce choix plus tard.",
+		Lite = "Lite",
+		Full = "Full",
+		Recommended = "Recommandé",
+		["Core Features"] = "Fonctions essentielles",
+		["Simpler Interface"] = "Interface simplifiée",
+		["Easier to Use"] = "Plus facile à utiliser",
+		["All Features"] = "Toutes les fonctions",
+		["Advanced Controls"] = "Contrôles avancés",
+		["Full Customization"] = "Personnalisation complète",
+		["Load Lite"] = "Charger Lite",
+		["Load Full"] = "Charger Full",
+		["Remember and skip this screen next time"] = "Mémoriser et ignorer cet écran la prochaine fois",
+		["Choose how you want Cokeboys to run. You can change this later in Settings."] = "Choisissez comment utiliser Cokeboys. Vous pourrez modifier ce choix plus tard dans les paramètres.",
+		["Existing / Classic Experience"] = "Expérience existante / classique",
+		["Preparing Lite..."] = "Préparation de Lite...",
+		["Preparing Full..."] = "Préparation de Full...",
+		["Preference could not be saved"] = "La préférence n'a pas pu être enregistrée",
+		["Verifying key..."] = "Vérification de la clé...",
+		["Starting %s..."] = "Démarrage de %s...",
+		["Cleanup could not be verified. Re-execute Cokeboys to continue."] = "Le nettoyage n'a pas pu être vérifié. Relancez Cokeboys pour continuer.",
+	},
+	Vietnamese = {
+		["Choose Your Cokeboys Experience"] = "Chọn trải nghiệm Cokeboys của bạn",
+		["Select the experience that fits how you play."] = "Chọn trải nghiệm phù hợp với cách chơi của bạn.",
+		["Full Experience"] = "Trải Nghiệm Đầy Đủ",
+		["Core Experience"] = "Trải Nghiệm Cốt Lõi",
+		["The complete Cokeboys experience."] = "Trải nghiệm Cokeboys hoàn chỉnh.",
+		["A simple, focused Cokeboys experience."] = "Trải nghiệm Cokeboys đơn giản và tập trung.",
+		["Classic Experience"] = "Trải nghiệm cổ điển",
+		["Essential Features"] = "Tính năng thiết yếu",
+		["Streamlined Interface"] = "Giao diện tinh gọn",
+		["Faster Setup"] = "Thiết lập nhanh hơn",
+		["Launch Full"] = "Khởi chạy Full",
+		["Launch Core"] = "Khởi chạy Core",
+		["Choose Your Experience"] = "Chọn trải nghiệm của bạn",
+		["You can change this again later."] = "Bạn có thể đổi lựa chọn này sau.",
+		Lite = "Lite",
+		Full = "Full",
+		Recommended = "Đề xuất",
+		["Core Features"] = "Tính năng cốt lõi",
+		["Simpler Interface"] = "Giao diện đơn giản hơn",
+		["Easier to Use"] = "Dễ sử dụng hơn",
+		["All Features"] = "Tất cả tính năng",
+		["Advanced Controls"] = "Điều khiển nâng cao",
+		["Full Customization"] = "Tùy chỉnh đầy đủ",
+		["Load Lite"] = "Tải Lite",
+		["Load Full"] = "Tải Full",
+		["Remember and skip this screen next time"] = "Ghi nhớ và bỏ qua màn hình này lần sau",
+		["Choose how you want Cokeboys to run. You can change this later in Settings."] = "Chọn cách bạn muốn Cokeboys hoạt động. Bạn có thể thay đổi sau trong Cài đặt.",
+		["Existing / Classic Experience"] = "Trải nghiệm hiện có / cổ điển",
+		["Preparing Lite..."] = "Đang chuẩn bị Lite...",
+		["Preparing Full..."] = "Đang chuẩn bị Full...",
+		["Preference could not be saved"] = "Không thể lưu tùy chọn",
+		["Verifying key..."] = "Đang xác minh khóa...",
+		["Starting %s..."] = "Đang khởi động %s...",
+		["Cleanup could not be verified. Re-execute Cokeboys to continue."] = "Không thể xác minh việc dọn dẹp. Hãy chạy lại Cokeboys để tiếp tục.",
+	},
+	Indonesian = {
+		["Choose Your Cokeboys Experience"] = "Pilih pengalaman Cokeboys Anda",
+		["Select the experience that fits how you play."] = "Pilih pengalaman yang sesuai dengan cara bermain Anda.",
+		["Full Experience"] = "Pengalaman Lengkap",
+		["Core Experience"] = "Pengalaman Inti",
+		["The complete Cokeboys experience."] = "Pengalaman Cokeboys lengkap.",
+		["A simple, focused Cokeboys experience."] = "Pengalaman Cokeboys yang sederhana dan terfokus.",
+		["Classic Experience"] = "Pengalaman klasik",
+		["Essential Features"] = "Fitur penting",
+		["Streamlined Interface"] = "Antarmuka ringkas",
+		["Faster Setup"] = "Pengaturan lebih cepat",
+		["Launch Full"] = "Jalankan Full",
+		["Launch Core"] = "Jalankan Core",
+		["Choose Your Experience"] = "Pilih pengalaman Anda",
+		["You can change this again later."] = "Anda dapat mengubah pilihan ini nanti.",
+		Lite = "Lite",
+		Full = "Full",
+		Recommended = "Disarankan",
+		["Core Features"] = "Fitur inti",
+		["Simpler Interface"] = "Antarmuka lebih sederhana",
+		["Easier to Use"] = "Lebih mudah digunakan",
+		["All Features"] = "Semua fitur",
+		["Advanced Controls"] = "Kontrol lanjutan",
+		["Full Customization"] = "Kustomisasi penuh",
+		["Load Lite"] = "Muat Lite",
+		["Load Full"] = "Muat Full",
+		["Remember and skip this screen next time"] = "Ingat dan lewati layar ini lain kali",
+		["Choose how you want Cokeboys to run. You can change this later in Settings."] = "Pilih cara Cokeboys berjalan. Anda dapat mengubahnya nanti di Pengaturan.",
+		["Existing / Classic Experience"] = "Pengalaman lama / klasik",
+		["Preparing Lite..."] = "Menyiapkan Lite...",
+		["Preparing Full..."] = "Menyiapkan Full...",
+		["Preference could not be saved"] = "Preferensi tidak dapat disimpan",
+		["Verifying key..."] = "Memverifikasi kunci...",
+		["Starting %s..."] = "Memulai %s...",
+		["Cleanup could not be verified. Re-execute Cokeboys to continue."] = "Pembersihan tidak dapat diverifikasi. Jalankan ulang Cokeboys untuk melanjutkan.",
+	},
+	Filipino = {
+		["Choose Your Cokeboys Experience"] = "Piliin ang iyong Cokeboys experience",
+		["Select the experience that fits how you play."] = "Piliin ang experience na akma sa paraan ng paglalaro mo.",
+		["Full Experience"] = "Full Experience",
+		["Core Experience"] = "Core Experience",
+		["The complete Cokeboys experience."] = "Ang kumpletong Cokeboys experience.",
+		["A simple, focused Cokeboys experience."] = "Isang simple at focused na Cokeboys experience.",
+		["Classic Experience"] = "Classic experience",
+		["Essential Features"] = "Mahahalagang feature",
+		["Streamlined Interface"] = "Mas maayos na interface",
+		["Faster Setup"] = "Mas mabilis na setup",
+		["Launch Full"] = "Buksan ang Full",
+		["Launch Core"] = "Buksan ang Core",
+		["Choose Your Experience"] = "Piliin ang iyong experience",
+		["You can change this again later."] = "Maaari mo itong baguhin sa susunod.",
+		Lite = "Lite",
+		Full = "Full",
+		Recommended = "Inirerekomenda",
+		["Core Features"] = "Mga pangunahing feature",
+		["Simpler Interface"] = "Mas simpleng interface",
+		["Easier to Use"] = "Mas madaling gamitin",
+		["All Features"] = "Lahat ng feature",
+		["Advanced Controls"] = "Advanced na controls",
+		["Full Customization"] = "Buong customization",
+		["Load Lite"] = "I-load ang Lite",
+		["Load Full"] = "I-load ang Full",
+		["Remember and skip this screen next time"] = "Tandaan at laktawan ang screen na ito sa susunod",
+		["Choose how you want Cokeboys to run. You can change this later in Settings."] = "Piliin kung paano tatakbo ang Cokeboys. Maaari mo itong baguhin sa Settings.",
+		["Existing / Classic Experience"] = "Kasalukuyan / classic na experience",
+		["Preparing Lite..."] = "Inihahanda ang Lite...",
+		["Preparing Full..."] = "Inihahanda ang Full...",
+		["Preference could not be saved"] = "Hindi na-save ang preference",
+		["Verifying key..."] = "Vine-verify ang key...",
+		["Starting %s..."] = "Sinisimulan ang %s...",
+		["Cleanup could not be verified. Re-execute Cokeboys to continue."] = "Hindi ma-verify ang cleanup. I-execute ulit ang Cokeboys para magpatuloy.",
+	},
+}) do
+	local tbl4 = tbl3[k] or {}
+	tbl3[k] = tbl4
+
+	for k2, value4 in pairs(value3) do
+		tbl3[k][k2] = value4
+	end
+end
+
+for k, value5 in pairs({
+	Spanish = {
+		LANGUAGE = "IDIOMA",
+		["Select Language"] = "Seleccionar idioma",
+		Gold = "Dorado",
+		Red = "Rojo",
+		Green = "Verde",
+		Cyan = "Cian",
+		White = "Blanco",
+		Magenta = "Magenta",
+		Pink = "Rosa",
+		Purple = "Morado",
+		Blue = "Azul",
+		Black = "Negro",
+		Midnight = "Medianoche",
+		["Custom RGB"] = "RGB personalizado",
+		["Top Right"] = "Arriba derecha",
+		["Top Left"] = "Arriba izquierda",
+		["Bottom Right"] = "Abajo derecha",
+		["Bottom Left"] = "Abajo izquierda",
+		Line = "Línea",
+		None = "Ninguno",
+		Tap = "Tocar",
+		Hold = "Mantener",
+		On = "Activado",
+		Off = "Desactivado",
+		["Jumps After Skill"] = "Saltos después de la habilidad",
+		Jump = "Salto",
+		Jumps = "Saltos",
+		["Skill Aimbot"] = "Aimbot de habilidades",
+		["Soru Aimbot"] = "Aimbot de Soru",
+		["Auto Prediction"] = "Predicción automática",
+		["Safe Zone Filter"] = "Filtro de zona segura",
+		["Target Mode"] = "Modo de objetivo",
+		["Target Priority"] = "Prioridad de objetivo",
+		["Target Switch Delay"] = "Retraso de cambio de objetivo",
+		["360° Targeting"] = "Objetivo 360°",
+		["Skill CamLock"] = "CamLock de habilidades",
+		["Ability Range Check"] = "Comprobación de alcance",
+		["Show FOV Circle"] = "Mostrar círculo FOV",
+		["ESP Enabled"] = "Activar ESP",
+		["Speed Boost"] = "Aumento de velocidad",
+		["Dash Boost"] = "Aumento de dash",
+		["Jump Boost"] = "Aumento de salto",
+		["Walk on Water"] = "Caminar sobre agua",
+		["Walk on Lava"] = "Caminar sobre lava",
+		["Auto V3"] = "V3 automático",
+		["Smart V3"] = "V3 inteligente",
+		["Auto V4"] = "V4 automático",
+		["Smart V4"] = "V4 inteligente",
+		["Normal Safe Mode"] = "Modo seguro normal",
+		["Disable Notifications"] = "Desactivar notificaciones",
+		["Streamer Mode"] = "Modo streamer",
+		["Hide Control Fruit Effects"] = "Ocultar efectos de la fruta Control",
+		["Locally hides Control's room visuals and pauses its heavy bubble animation"] = "Oculta localmente los efectos de la sala de Control y pausa la pesada animación de la burbuja",
+	},
+	Portuguese = {
+		LANGUAGE = "IDIOMA",
+		["Select Language"] = "Selecionar idioma",
+		Gold = "Dourado",
+		Red = "Vermelho",
+		Green = "Verde",
+		Cyan = "Ciano",
+		White = "Branco",
+		Magenta = "Magenta",
+		Pink = "Rosa",
+		Purple = "Roxo",
+		Blue = "Azul",
+		Black = "Preto",
+		Midnight = "Meia-noite",
+		["Custom RGB"] = "RGB personalizado",
+		["Top Right"] = "Superior direito",
+		["Top Left"] = "Superior esquerdo",
+		["Bottom Right"] = "Inferior direito",
+		["Bottom Left"] = "Inferior esquerdo",
+		Line = "Linha",
+		None = "Nenhum",
+		Tap = "Toque",
+		Hold = "Segurar",
+		On = "Ligado",
+		Off = "Desligado",
+		["Jumps After Skill"] = "Saltos após a habilidade",
+		Jump = "Salto",
+		Jumps = "Saltos",
+		["Skill Aimbot"] = "Aimbot de habilidades",
+		["Soru Aimbot"] = "Aimbot de Soru",
+		["Auto Prediction"] = "Predição automática",
+		["Safe Zone Filter"] = "Filtro de zona segura",
+		["Target Mode"] = "Modo de alvo",
+		["Target Priority"] = "Prioridade do alvo",
+		["Target Switch Delay"] = "Atraso para trocar alvo",
+		["360° Targeting"] = "Alvo 360°",
+		["Skill CamLock"] = "CamLock de habilidades",
+		["Ability Range Check"] = "Verificação de alcance",
+		["Show FOV Circle"] = "Mostrar círculo FOV",
+		["ESP Enabled"] = "Ativar ESP",
+		["Speed Boost"] = "Aumento de velocidade",
+		["Dash Boost"] = "Aumento de dash",
+		["Jump Boost"] = "Aumento de pulo",
+		["Walk on Water"] = "Andar na água",
+		["Walk on Lava"] = "Andar na lava",
+		["Auto V3"] = "V3 automático",
+		["Smart V3"] = "V3 inteligente",
+		["Auto V4"] = "V4 automático",
+		["Smart V4"] = "V4 inteligente",
+		["Normal Safe Mode"] = "Modo seguro normal",
+		["Disable Notifications"] = "Desativar notificações",
+		["Streamer Mode"] = "Modo streamer",
+		["Hide Control Fruit Effects"] = "Ocultar efeitos da fruta Control",
+		["Locally hides Control's room visuals and pauses its heavy bubble animation"] = "Oculta localmente os efeitos da sala do Control e pausa a animação pesada da bolha",
+	},
+	French = {
+		LANGUAGE = "LANGUE",
+		["Select Language"] = "Choisir la langue",
+		Gold = "Or",
+		Red = "Rouge",
+		Green = "Vert",
+		Cyan = "Cyan",
+		White = "Blanc",
+		Magenta = "Magenta",
+		Pink = "Rose",
+		Purple = "Violet",
+		Blue = "Bleu",
+		Black = "Noir",
+		Midnight = "Minuit",
+		["Custom RGB"] = "RGB personnalisé",
+		["Top Right"] = "En haut à droite",
+		["Top Left"] = "En haut à gauche",
+		["Bottom Right"] = "En bas à droite",
+		["Bottom Left"] = "En bas à gauche",
+		Line = "Ligne",
+		None = "Aucun",
+		Tap = "Appui",
+		Hold = "Maintenir",
+		On = "Activé",
+		Off = "Désactivé",
+		["Jumps After Skill"] = "Sauts après la compétence",
+		Jump = "Saut",
+		Jumps = "Sauts",
+		["Skill Aimbot"] = "Aimbot de compétences",
+		["Soru Aimbot"] = "Aimbot de Soru",
+		["Auto Prediction"] = "Prédiction automatique",
+		["Safe Zone Filter"] = "Filtre de zone sûre",
+		["Target Mode"] = "Mode de ciblage",
+		["Target Priority"] = "Priorité de cible",
+		["Target Switch Delay"] = "Délai de changement de cible",
+		["360° Targeting"] = "Ciblage à 360°",
+		["Skill CamLock"] = "CamLock des compétences",
+		["Ability Range Check"] = "Vérification de portée",
+		["Show FOV Circle"] = "Afficher le cercle FOV",
+		["ESP Enabled"] = "Activer l'ESP",
+		["Speed Boost"] = "Boost de vitesse",
+		["Dash Boost"] = "Boost de dash",
+		["Jump Boost"] = "Boost de saut",
+		["Walk on Water"] = "Marcher sur l'eau",
+		["Walk on Lava"] = "Marcher sur la lave",
+		["Auto V3"] = "V3 automatique",
+		["Smart V3"] = "V3 intelligent",
+		["Auto V4"] = "V4 automatique",
+		["Smart V4"] = "V4 intelligent",
+		["Normal Safe Mode"] = "Mode sécurisé normal",
+		["Disable Notifications"] = "Désactiver les notifications",
+		["Streamer Mode"] = "Mode streamer",
+		["Hide Control Fruit Effects"] = "Masquer les effets du fruit Control",
+		["Locally hides Control's room visuals and pauses its heavy bubble animation"] = "Masque localement les effets de la salle de Control et met en pause la lourde animation de la bulle",
+	},
+	Vietnamese = {
+		LANGUAGE = "NGÔN NGỮ",
+		["Select Language"] = "Chọn ngôn ngữ",
+		Gold = "Vàng",
+		Red = "Đỏ",
+		Green = "Xanh lá",
+		Cyan = "Xanh ngọc",
+		White = "Trắng",
+		Magenta = "Hồng tím",
+		Pink = "Hồng",
+		Purple = "Tím",
+		Blue = "Xanh dương",
+		Black = "Đen",
+		Midnight = "Đêm",
+		["Custom RGB"] = "RGB tùy chỉnh",
+		["Top Right"] = "Trên phải",
+		["Top Left"] = "Trên trái",
+		["Bottom Right"] = "Dưới phải",
+		["Bottom Left"] = "Dưới trái",
+		Line = "Đường",
+		None = "Không",
+		Tap = "Chạm",
+		Hold = "Giữ",
+		On = "Bật",
+		Off = "Tắt",
+		["Jumps After Skill"] = "Nhảy sau kỹ năng",
+		Jump = "Lần nhảy",
+		Jumps = "Lần nhảy",
+		["Skill Aimbot"] = "Aimbot kỹ năng",
+		["Soru Aimbot"] = "Aimbot Soru",
+		["Auto Prediction"] = "Dự đoán tự động",
+		["Safe Zone Filter"] = "Lọc vùng an toàn",
+		["Target Mode"] = "Chế độ mục tiêu",
+		["Target Priority"] = "Ưu tiên mục tiêu",
+		["Target Switch Delay"] = "Độ trễ đổi mục tiêu",
+		["360° Targeting"] = "Nhắm mục tiêu 360°",
+		["Skill CamLock"] = "CamLock kỹ năng",
+		["Ability Range Check"] = "Kiểm tra tầm kỹ năng",
+		["Show FOV Circle"] = "Hiện vòng FOV",
+		["ESP Enabled"] = "Bật ESP",
+		["Speed Boost"] = "Tăng tốc",
+		["Dash Boost"] = "Tăng dash",
+		["Jump Boost"] = "Tăng nhảy",
+		["Walk on Water"] = "Đi trên nước",
+		["Walk on Lava"] = "Đi trên dung nham",
+		["Auto V3"] = "V3 tự động",
+		["Smart V3"] = "V3 thông minh",
+		["Auto V4"] = "V4 tự động",
+		["Smart V4"] = "V4 thông minh",
+		["Normal Safe Mode"] = "Chế độ an toàn thường",
+		["Disable Notifications"] = "Tắt thông báo",
+		["Streamer Mode"] = "Chế độ streamer",
+		["Hide Control Fruit Effects"] = "Ẩn hiệu ứng trái Control",
+		["Locally hides Control's room visuals and pauses its heavy bubble animation"] = "Ẩn cục bộ hiệu ứng phòng Control và tạm dừng hoạt ảnh bong bóng nặng",
+	},
+	Indonesian = {
+		LANGUAGE = "BAHASA",
+		["Select Language"] = "Pilih bahasa",
+		Gold = "Emas",
+		Red = "Merah",
+		Green = "Hijau",
+		Cyan = "Sian",
+		White = "Putih",
+		Magenta = "Magenta",
+		Pink = "Merah muda",
+		Purple = "Ungu",
+		Blue = "Biru",
+		Black = "Hitam",
+		Midnight = "Tengah malam",
+		["Custom RGB"] = "RGB khusus",
+		["Top Right"] = "Kanan atas",
+		["Top Left"] = "Kiri atas",
+		["Bottom Right"] = "Kanan bawah",
+		["Bottom Left"] = "Kiri bawah",
+		Line = "Garis",
+		None = "Tidak ada",
+		Tap = "Ketuk",
+		Hold = "Tahan",
+		On = "Aktif",
+		Off = "Nonaktif",
+		["Jumps After Skill"] = "Lompatan setelah skill",
+		Jump = "Lompatan",
+		Jumps = "Lompatan",
+		["Skill Aimbot"] = "Aimbot skill",
+		["Soru Aimbot"] = "Aimbot Soru",
+		["Auto Prediction"] = "Prediksi otomatis",
+		["Safe Zone Filter"] = "Filter zona aman",
+		["Target Mode"] = "Mode target",
+		["Target Priority"] = "Prioritas target",
+		["Target Switch Delay"] = "Jeda pergantian target",
+		["360° Targeting"] = "Penargetan 360°",
+		["Skill CamLock"] = "CamLock skill",
+		["Ability Range Check"] = "Pemeriksaan jangkauan",
+		["Show FOV Circle"] = "Tampilkan lingkaran FOV",
+		["ESP Enabled"] = "Aktifkan ESP",
+		["Speed Boost"] = "Peningkat kecepatan",
+		["Dash Boost"] = "Peningkat dash",
+		["Jump Boost"] = "Peningkat lompatan",
+		["Walk on Water"] = "Berjalan di air",
+		["Walk on Lava"] = "Berjalan di lava",
+		["Auto V3"] = "V3 otomatis",
+		["Smart V3"] = "V3 pintar",
+		["Auto V4"] = "V4 otomatis",
+		["Smart V4"] = "V4 pintar",
+		["Normal Safe Mode"] = "Mode aman normal",
+		["Disable Notifications"] = "Matikan notifikasi",
+		["Streamer Mode"] = "Mode streamer",
+		["Hide Control Fruit Effects"] = "Sembunyikan efek buah Control",
+		["Locally hides Control's room visuals and pauses its heavy bubble animation"] = "Menyembunyikan efek ruang Control secara lokal dan menjeda animasi gelembung yang berat",
+	},
+	Filipino = {
+		LANGUAGE = "WIKA",
+		["Select Language"] = "Pumili ng Wika",
+		Gold = "Ginto",
+		Red = "Pula",
+		Green = "Berde",
+		Cyan = "Cyan",
+		White = "Puti",
+		Magenta = "Magenta",
+		Pink = "Rosas",
+		Purple = "Lila",
+		Blue = "Asul",
+		Black = "Itim",
+		Midnight = "Hatinggabi",
+		["Custom RGB"] = "Custom RGB",
+		["Top Right"] = "Itaas Kanan",
+		["Top Left"] = "Itaas Kaliwa",
+		["Bottom Right"] = "Ibaba Kanan",
+		["Bottom Left"] = "Ibaba Kaliwa",
+		Line = "Linya",
+		None = "Wala",
+		Tap = "I-tap",
+		Hold = "Hawakan",
+		On = "Bukas",
+		Off = "Patay",
+		["Jumps After Skill"] = "Mga talon pagkatapos ng skill",
+		Jump = "Talon",
+		Jumps = "Mga talon",
+		["Skill Aimbot"] = "Skill Aimbot",
+		["Soru Aimbot"] = "Soru Aimbot",
+		["Auto Prediction"] = "Awtomatikong Prediction",
+		["Safe Zone Filter"] = "Safe Zone Filter",
+		["Target Mode"] = "Target Mode",
+		["Target Priority"] = "Prayoridad ng Target",
+		["Target Switch Delay"] = "Delay sa Pagpalit ng Target",
+		["360° Targeting"] = "360° Targeting",
+		["Skill CamLock"] = "Skill CamLock",
+		["Ability Range Check"] = "Pagsuri ng Abot ng Ability",
+		["Show FOV Circle"] = "Ipakita ang FOV Circle",
+		["ESP Enabled"] = "I-enable ang ESP",
+		["Speed Boost"] = "Speed Boost",
+		["Dash Boost"] = "Dash Boost",
+		["Jump Boost"] = "Jump Boost",
+		["Walk on Water"] = "Maglakad sa Tubig",
+		["Walk on Lava"] = "Maglakad sa Lava",
+		["Auto V3"] = "Auto V3",
+		["Smart V3"] = "Smart V3",
+		["Auto V4"] = "Auto V4",
+		["Smart V4"] = "Smart V4",
+		["Normal Safe Mode"] = "Normal Safe Mode",
+		["Disable Notifications"] = "I-disable ang mga Notification",
+		["Streamer Mode"] = "Streamer Mode",
+		["Hide Control Fruit Effects"] = "Itago ang Control Fruit Effects",
+		["Locally hides Control's room visuals and pauses its heavy bubble animation"] = "Lokal na itinatago ang mga visual ng Control room at pini-pause ang mabigat na bubble animation",
+	},
+}) do
+	tbl3[k] = tbl3[k] or {}
+
+	for k2, value6 in pairs(value5) do
+		tbl3[k][k2] = value6
+	end
+end
+
+for k, value7 in pairs({
+	Spanish = {
+		ON = "ACTIVADO",
+		OFF = "DESACTIVADO",
+		TAP = "TOCAR",
+		HOLD = "MANTENER",
+		Enabled = "Activado",
+		Disabled = "Desactivado",
+		Melee = "Combate",
+		Fruit = "Fruta",
+		Sword = "Espada",
+		Gun = "Arma",
+		Weapon = "Arma",
+		["Skill Key"] = "Tecla de habilidad",
+		Placement = "Posición",
+		Count = "Cantidad",
+		Attack = "Ataque",
+		Attacks = "Ataques",
+		BLOCK = "BLOQUE",
+		BLOCKS = "BLOQUES",
+		SLOTS = "RANURAS",
+		Slot = "Ranura",
+		STOPPED = "DETENIDO",
+		IDLE = "INACTIVO",
+		EXCLUDED = "EXCLUIDO",
+		Clear = "Borrar",
+		Add = "Añadir",
+	},
+	Portuguese = {
+		ON = "LIGADO",
+		OFF = "DESLIGADO",
+		TAP = "TOQUE",
+		HOLD = "SEGURAR",
+		Enabled = "Ativado",
+		Disabled = "Desativado",
+		Melee = "Corpo a corpo",
+		Fruit = "Fruta",
+		Sword = "Espada",
+		Gun = "Arma",
+		Weapon = "Arma",
+		["Skill Key"] = "Tecla da habilidade",
+		Placement = "Posição",
+		Count = "Quantidade",
+		Attack = "Ataque",
+		Attacks = "Ataques",
+		BLOCK = "BLOCO",
+		BLOCKS = "BLOCOS",
+		SLOTS = "ESPAÇOS",
+		Slot = "Espaço",
+		STOPPED = "PARADO",
+		IDLE = "INATIVO",
+		EXCLUDED = "EXCLUÍDO",
+		Clear = "Limpar",
+		Add = "Adicionar",
+	},
+	French = {
+		ON = "ACTIVÉ",
+		OFF = "DÉSACTIVÉ",
+		TAP = "APPUYER",
+		HOLD = "MAINTENIR",
+		Enabled = "Activé",
+		Disabled = "Désactivé",
+		Melee = "Mêlée",
+		Fruit = "Fruit",
+		Sword = "Épée",
+		Gun = "Arme",
+		Weapon = "Arme",
+		["Skill Key"] = "Touche de compétence",
+		Placement = "Position",
+		Count = "Nombre",
+		Attack = "Attaque",
+		Attacks = "Attaques",
+		BLOCK = "BLOC",
+		BLOCKS = "BLOCS",
+		SLOTS = "EMPLACEMENTS",
+		Slot = "Emplacement",
+		STOPPED = "ARRÊTÉ",
+		IDLE = "INACTIF",
+		EXCLUDED = "EXCLU",
+		Clear = "Effacer",
+		Add = "Ajouter",
+	},
+	Vietnamese = {
+		ON = "BẬT",
+		OFF = "TẮT",
+		TAP = "CHẠM",
+		HOLD = "GIỮ",
+		Enabled = "Đã bật",
+		Disabled = "Đã tắt",
+		Melee = "Cận chiến",
+		Fruit = "Trái ác quỷ",
+		Sword = "Kiếm",
+		Gun = "Súng",
+		Weapon = "Vũ khí",
+		["Skill Key"] = "Phím kỹ năng",
+		Placement = "Vị trí",
+		Count = "Số lần",
+		Attack = "Đòn đánh",
+		Attacks = "Đòn đánh",
+		BLOCK = "KHỐI",
+		BLOCKS = "CÁC KHỐI",
+		SLOTS = "Ô",
+		Slot = "Ô",
+		STOPPED = "ĐÃ DỪNG",
+		IDLE = "CHỜ",
+		EXCLUDED = "ĐÃ LOẠI TRỪ",
+		Clear = "Xóa",
+		Add = "Thêm",
+	},
+	Indonesian = {
+		ON = "AKTIF",
+		OFF = "NONAKTIF",
+		TAP = "KETUK",
+		HOLD = "TAHAN",
+		Enabled = "Aktif",
+		Disabled = "Nonaktif",
+		Melee = "Jarak dekat",
+		Fruit = "Buah",
+		Sword = "Pedang",
+		Gun = "Senjata",
+		Weapon = "Senjata",
+		["Skill Key"] = "Tombol skill",
+		Placement = "Posisi",
+		Count = "Jumlah",
+		Attack = "Serangan",
+		Attacks = "Serangan",
+		BLOCK = "BLOK",
+		BLOCKS = "BLOK",
+		SLOTS = "SLOT",
+		Slot = "Slot",
+		STOPPED = "BERHENTI",
+		IDLE = "SIAGA",
+		EXCLUDED = "DIKECUALIKAN",
+		Clear = "Bersihkan",
+		Add = "Tambah",
+	},
+	Filipino = {
+		ON = "BUKAS",
+		OFF = "PATAY",
+		TAP = "I-TAP",
+		HOLD = "HAWAKAN",
+		Enabled = "Naka-enable",
+		Disabled = "Naka-disable",
+		Melee = "Melee",
+		Fruit = "Prutas",
+		Sword = "Espada",
+		Gun = "Baril",
+		Weapon = "Sandata",
+		["Skill Key"] = "Skill Key",
+		Placement = "Posisyon",
+		Count = "Bilang",
+		Attack = "Atake",
+		Attacks = "Mga Atake",
+		BLOCK = "BLOCK",
+		BLOCKS = "MGA BLOCK",
+		SLOTS = "MGA SLOT",
+		Slot = "Slot",
+		STOPPED = "HUMINTO",
+		IDLE = "NAKAHINTO",
+		EXCLUDED = "IBINUKOD",
+		Clear = "Burahin",
+		Add = "Idagdag",
+	},
+}) do
+	tbl3[k] = tbl3[k] or {}
+
+	for k2, value8 in pairs(value7) do
+		tbl3[k][k2] = value8
+	end
+end
+
+local tbl5 = {}
+local tbl6 = { "Spanish", "Portuguese", "French", "Vietnamese", "Indonesian", "Filipino" }
+local cokeboysInterfaceLanguage = nil
+local value9 = nil
+local tbl7 = {}
+local value10 = nil
+
+local function func12(flag5)
+	if type(flag5) == "table" then
+		return flag5
+	end
+	-- deobfuscated by S​o​u​r​c​e​ ​L​e​a​k -> https://discord.gg/x7YbZeezpm
+
+	if type(flag5) ~= "string" or flag5 == "" then
+		return nil
+	end
+
+	local ok, result = pcall(function()
+		return game:GetService("HttpService"):JSONDecode(flag5)
+	end)
+
+	return ok and type(result) == "table" and result or nil
+end
+
+local function func13(str2)
+	table.clear(tbl7)
+	if str2 == nil or str2 == "English" then
+		return
+	end
+	local tbl8 = value9
+	if not tbl8 then
+		return
+	end
+	local value11 = value10
+	local flag6
+
+	if value10 then
+		flag6 = value11
+	else
+		flag6 = func12(tbl8.sourcesJson)
+	end
+
+	flag6 = flag6 or func12(tbl8.sources)
+
+	if flag6 and not value10 then
+		value10 = flag6
+	end
+
+	local tbl9 = func12(tbl8[str2 .. "Json"]) or func12(tbl8[str2])
+	if type(flag6) ~= "table" or type(tbl9) ~= "table" then
+		return
+	end
+
+	for i, item in ipairs(flag6) do
+		local entry1 = tbl9[i]
+
+		if type(item) == "string" and type(entry1) == "string" then
+			tbl7[item] = entry1
+		end
+	end
+end
+
+_G.__CokeboysRegisterTranslationRows = function(list1)
+	if type(list1) ~= "table" then
+		return
+	end
+
+	for _, item2 in ipairs(list1) do
+		local flag7 = type(item2) == "table" and item2[1] or nil
+
+		if type(flag7) == "string" then
+			for i, item3 in ipairs(tbl6) do
+				local entry2 = item2[i + 1]
+				tbl3[item3] = tbl3[item3] or {}
+
+				if tbl3[item3][flag7] == nil and type(entry2) == "string" then
+					tbl3[item3][flag7] = entry2
+				end
+			end
+		end
+	end
+end
+
+_G.__CokeboysRegisterTranslationPack = function(obj)
+	if obj == nil then
+		value9 = nil
+		value10 = nil
+		table.clear(tbl7)
+		return
+	end
+
+	if type(obj) ~= "table" or type(obj.sources) ~= "table" and type(obj.sourcesJson) ~= "string" then
+		return
+	end
+	value9 = obj
+	value10 = nil
+	func13(cokeboysInterfaceLanguage)
+end
+
+_G.__CokeboysRegisterTranslationPatterns = function(list2)
+	if type(list2) ~= "table" then
+		return
+	end
+
+	for k, value12 in pairs(list2) do
+		if type(value12) == "table" then
+			tbl5[k] = value12
+		end
+	end
+end
+
+_G.__CokeboysRegisterTranslationRows({
+	{ "FPS", "FPS", "FPS", "FPS", "FPS", "FPS" },
+	{ "Ping", "Latencia", "Ping", "Latence", "Ping", "Ping" },
+	{ "SERVER", "SERVIDOR", "SERVIDOR", "SERVEUR", "MÁY CHỦ", "SERVER" },
+	{ "SESSION", "SESIÓN", "SESSÃO", "SESSION", "PHIÊN", "SESI" },
+	{ "PLAYERS", "JUGADORES", "JOGADORES", "JOUEURS", "NGƯỜI CHƠI", "PEMAIN" },
+	{ "BOUNTY", "RECOMPENSA", "RECOMPENSA", "PRIME", "TRUY NÃ", "BOUNTY" },
+	{ "HONOR", "HONOR", "HONRA", "HONNEUR", "DANH DỰ", "KEHORMATAN" },
+	{
+		"SYNCING",
+		"SINCRONIZANDO",
+		"SINCRONIZANDO",
+		"SYNCHRONISATION",
+		"ĐANG ĐỒNG BỘ",
+		"MENYINKRONKAN",
+	},
+	{ "Keybind", "tecla", "atalho", "raccourci", "phím tắt", "tombol pintas" },
+	{ "Press", "Pulsa", "Pressione", "Appuyez", "Nhấn", "Tekan" },
+	{
+		"to switch to the next eligible target",
+		"para cambiar al siguiente objetivo válido",
+		"para mudar para o próximo alvo válido",
+		"pour passer à la prochaine cible valide",
+		"để chuyển sang mục tiêu hợp lệ tiếp theo",
+		"untuk beralih ke target valid berikutnya",
+	},
+	{
+		"Restock in",
+		"Reposición en",
+		"Reabastece em",
+		"Réapprovisionnement dans",
+		"Có lại sau",
+		"Stok ulang dalam",
+	},
+	{ "more", "más", "mais", "de plus", "nữa", "lagi" },
+	{ "PRIMARY", "PRINCIPAL", "PRINCIPAL", "PRINCIPAL", "CHÍNH", "UTAMA" },
+	{ "MARINE", "MARINE", "MARINE", "MARINE", "HẢI QUÂN", "MARINE" },
+	{ "PIRATE", "PIRATA", "PIRATA", "PIRATE", "HẢI TẶC", "BAJAK LAUT" },
+	{
+		"SELECTING TEAM",
+		"ELIGIENDO EQUIPO",
+		"ESCOLHENDO EQUIPE",
+		"CHOIX DE L'ÉQUIPE",
+		"ĐANG CHỌN ĐỘI",
+		"MEMILIH TIM",
+	},
+	{ "INCLUDE", "INCLUIR", "INCLUIR", "INCLURE", "BAO GỒM", "SERTAKAN" },
+	{ "EXCLUDE", "EXCLUIR", "EXCLUIR", "EXCLURE", "LOẠI TRỪ", "KECUALIKAN" },
+	{ "Player", "Jugador", "Jogador", "Joueur", "Người chơi", "Pemain" },
+	{
+		"Identity hidden",
+		"Identidad oculta",
+		"Identidade oculta",
+		"Identité masquée",
+		"Đã ẩn danh tính",
+		"Identitas disembunyikan",
+	},
+	{ "AUTO", "AUTO", "AUTO", "AUTO", "TỰ ĐỘNG", "OTOMATIS" },
+	{ "MANUAL", "MANUAL", "MANUAL", "MANUEL", "THỦ CÔNG", "MANUAL" },
+	{
+		"Show Less",
+		"Mostrar menos",
+		"Mostrar menos",
+		"Afficher moins",
+		"Hiện ít hơn",
+		"Tampilkan lebih sedikit",
+	},
+	{
+		"Show All Checks",
+		"Mostrar todas las comprobaciones",
+		"Mostrar todas as verificações",
+		"Afficher toutes les vérifications",
+		"Hiện tất cả kiểm tra",
+		"Tampilkan semua pemeriksaan",
+	},
+	{
+		"Show All Skills",
+		"Mostrar todas las habilidades",
+		"Mostrar todas as habilidades",
+		"Afficher toutes les compétences",
+		"Hiện tất cả kỹ năng",
+		"Tampilkan semua kemampuan",
+	},
+	{ "IN", "DENTRO", "DENTRO", "À PORTÉE", "TRONG TẦM", "DALAM JANGKAUAN" },
+	{ "OUT", "FUERA", "FORA", "HORS PORTÉE", "NGOÀI TẦM", "DI LUAR JANGKAUAN" },
+	{ "READY", "LISTO", "PRONTO", "PRÊT", "SẴN SÀNG", "SIAP" },
+	{ "Ken Off", "Ken desactivado", "Ken desligado", "Ken désactivé", "Ken tắt", "Ken mati" },
+	{ "PvP Off", "PvP desactivado", "PvP desligado", "PvP désactivé", "PvP tắt", "PvP mati" },
+	{ "In Combat", "En combate", "Em combate", "En combat", "Đang giao tranh", "Dalam pertarungan" },
+	{ "Safe Zone", "Zona segura", "Zona segura", "Zone sûre", "Khu an toàn", "Zona aman" },
+	{ "PvP On", "PvP activado", "PvP ligado", "PvP activé", "PvP bật", "PvP aktif" },
+	{
+		"Exclude All",
+		"Excluir a todos",
+		"Excluir todos",
+		"Tout exclure",
+		"Loại trừ tất cả",
+		"Kecualikan semua",
+	},
+	{ "Clear All", "Borrar todo", "Limpar tudo", "Tout effacer", "Xóa tất cả", "Bersihkan semua" },
+	{ "WAIT", "ESPERA", "AGUARDE", "ATTENTE", "CHỜ", "TUNGGU" },
+	{ "STOP", "PARAR", "PARAR", "ARRÊT", "DỪNG", "BERHENTI" },
+	{ "MACRO", "MACRO", "MACRO", "MACRO", "MACRO", "MAKRO" },
+	{ "TAGGED", "EN COMBATE", "EM COMBATE", "EN COMBAT", "ĐANG GIAO TRANH", "DALAM PERTARUNGAN" },
+	{ "COPY", "COPIAR", "COPIAR", "COPIER", "SAO CHÉP", "SALIN" },
+	{ "PC ONLY", "SOLO PC", "SOMENTE PC", "PC UNIQUEMENT", "CHỈ PC", "KHUSUS PC" },
+	{
+		"Press a key",
+		"Pulsa una tecla",
+		"Pressione uma tecla",
+		"Appuyez sur une touche",
+		"Nhấn một phím",
+		"Tekan sebuah tombol",
+	},
+	{
+		"Esc to cancel",
+		"Esc para cancelar",
+		"Esc para cancelar",
+		"Échap pour annuler",
+		"Esc để hủy",
+		"Esc untuk batal",
+	},
+	{
+		"Backspace to clear",
+		"Retroceso para borrar",
+		"Backspace para limpar",
+		"Retour arrière pour effacer",
+		"Backspace để xóa",
+		"Backspace untuk menghapus",
+	},
+	{
+		"Shared with:",
+		"Compartida con:",
+		"Compartilhada com:",
+		"Partagée avec :",
+		"Dùng chung với:",
+		"Digunakan bersama:",
+	},
+	{ "LANGUAGE", "IDIOMA", "IDIOMA", "LANGUE", "NGÔN NGỮ", "BAHASA" },
+	{ "Language", "Idioma", "Idioma", "Langue", "Ngôn ngữ", "Bahasa" },
+	{
+		"Auto Detect",
+		"Detección automática",
+		"Detecção automática",
+		"Détection automatique",
+		"Tự động phát hiện",
+		"Deteksi otomatis",
+	},
+	{
+		"Changes every script label immediately and saves for future sessions.",
+		"Cambia inmediatamente todos los textos del script y guarda la selección para futuras sesiones.",
+		"Altera imediatamente todos os textos do script e salva a seleção para sessões futuras.",
+		"Modifie immédiatement tous les textes du script et enregistre le choix pour les prochaines sessions.",
+		"Thay đổi ngay toàn bộ văn bản của script và lưu lựa chọn cho những lần sau.",
+		"Langsung mengubah semua teks script dan menyimpan pilihan untuk sesi berikutnya.",
+	},
+	{
+		"Language Changed",
+		"Idioma cambiado",
+		"Idioma alterado",
+		"Langue modifiée",
+		"Đã đổi ngôn ngữ",
+		"Bahasa diubah",
+	},
+	{
+		"The interface is now using your selected language.",
+		"La interfaz ahora usa el idioma seleccionado.",
+		"A interface agora usa o idioma selecionado.",
+		"L'interface utilise maintenant la langue sélectionnée.",
+		"Giao diện hiện đang dùng ngôn ngữ bạn đã chọn.",
+		"Antarmuka sekarang menggunakan bahasa pilihan Anda.",
+	},
+	{
+		"ON-SCREEN BUTTONS",
+		"BOTONES EN PANTALLA",
+		"BOTÕES NA TELA",
+		"BOUTONS À L'ÉCRAN",
+		"NÚT TRÊN MÀN HÌNH",
+		"TOMBOL DI LAYAR",
+	},
+	{
+		"Choose which shortcuts appear over the game. These switches only show or hide buttons.",
+		"Elige qué atajos aparecen sobre el juego. Estos interruptores solo muestran u ocultan botones.",
+		"Escolha quais atalhos aparecem durante o jogo. Essas opções apenas mostram ou ocultam botões.",
+		"Choisissez les raccourcis qui apparaissent dans le jeu. Ces options affichent ou masquent uniquement les boutons.",
+		"Chọn các phím tắt xuất hiện trong trò chơi. Các công tắc này chỉ hiển thị hoặc ẩn nút.",
+		"Pilih pintasan yang muncul di game. Pengaturan ini hanya menampilkan atau menyembunyikan tombol.",
+	},
+	{
+		"Show Aimbot",
+		"Mostrar Aimbot",
+		"Mostrar Aimbot",
+		"Afficher l'Aimbot",
+		"Hiện Aimbot",
+		"Tampilkan Aimbot",
+	},
+	{
+		"Show Macro",
+		"Mostrar Macro",
+		"Mostrar Macro",
+		"Afficher la Macro",
+		"Hiện Macro",
+		"Tampilkan Makro",
+	},
+	{
+		"Show Target Lock",
+		"Mostrar bloqueo de objetivo",
+		"Mostrar bloqueio de alvo",
+		"Afficher le verrouillage de cible",
+		"Hiện Khóa mục tiêu",
+		"Tampilkan Kunci Target",
+	},
+	{
+		"Show Fast Attack",
+		"Mostrar ataque rápido",
+		"Mostrar ataque rápido",
+		"Afficher l'attaque rapide",
+		"Hiện Tấn công nhanh",
+		"Tampilkan Serangan Cepat",
+	},
+	{
+		"Show Soru Aim",
+		"Mostrar Soru Aim",
+		"Mostrar Mira Soru",
+		"Afficher Soru Aim",
+		"Hiện Soru Aim",
+		"Tampilkan Soru Aim",
+	},
+	{
+		"Show Reset Character",
+		"Mostrar reinicio de personaje",
+		"Mostrar reinício de personagem",
+		"Afficher la réinitialisation du personnage",
+		"Hiện Đặt lại nhân vật",
+		"Tampilkan Reset Karakter",
+	},
+	{
+		"Show Sang Z",
+		"Mostrar Sang Z",
+		"Mostrar Sang Z",
+		"Afficher Sang Z",
+		"Hiện Sang Z",
+		"Tampilkan Sang Z",
+	},
+	{
+		"Show Ragdoll",
+		"Mostrar Ragdoll",
+		"Mostrar Ragdoll",
+		"Afficher Ragdoll",
+		"Hiện Ragdoll",
+		"Tampilkan Ragdoll",
+	},
+	{
+		"Show Diamond Boost",
+		"Mostrar Diamond Boost",
+		"Mostrar Diamond Boost",
+		"Afficher Diamond Boost",
+		"Hiện Diamond Boost",
+		"Tampilkan Diamond Boost",
+	},
+	{
+		"Shows a shortcut for turning Skill Aimbot on or off.",
+		"Muestra un atajo para activar o desactivar Skill Aimbot.",
+		"Mostra um atalho para ativar ou desativar o Skill Aimbot.",
+		"Affiche un raccourci pour activer ou désactiver Skill Aimbot.",
+		"Hiển thị phím tắt để bật hoặc tắt Skill Aimbot.",
+		"Menampilkan pintasan untuk mengaktifkan atau menonaktifkan Skill Aimbot.",
+	},
+	{
+		"Shows a shortcut for starting or stopping Smart Macro.",
+		"Muestra un atajo para iniciar o detener Smart Macro.",
+		"Mostra um atalho para iniciar ou parar o Smart Macro.",
+		"Affiche un raccourci pour démarrer ou arrêter Smart Macro.",
+		"Hiển thị phím tắt để bắt đầu hoặc dừng Smart Macro.",
+		"Menampilkan pintasan untuk memulai atau menghentikan Smart Macro.",
+	},
+	{
+		"Shows a shortcut for locking or releasing your current target.",
+		"Muestra un atajo para bloquear o liberar tu objetivo actual.",
+		"Mostra um atalho para bloquear ou liberar seu alvo atual.",
+		"Affiche un raccourci pour verrouiller ou libérer votre cible actuelle.",
+		"Hiển thị phím tắt để khóa hoặc thả mục tiêu hiện tại.",
+		"Menampilkan pintasan untuk mengunci atau melepaskan target saat ini.",
+	},
+	{
+		"Shows a shortcut for turning Fast Attack on or off.",
+		"Muestra un atajo para activar o desactivar Fast Attack.",
+		"Mostra um atalho para ativar ou desativar o Fast Attack.",
+		"Affiche un raccourci pour activer ou désactiver Fast Attack.",
+		"Hiển thị phím tắt để bật hoặc tắt Fast Attack.",
+		"Menampilkan pintasan untuk mengaktifkan atau menonaktifkan Fast Attack.",
+	},
+	{
+		"Shows a one-tap aimed Soru shortcut.",
+		"Muestra un atajo de Soru dirigido con un solo toque.",
+		"Mostra um atalho de Soru direcionado com um toque.",
+		"Affiche un raccourci Soru ciblé en un seul appui.",
+		"Hiển thị phím tắt Soru nhắm mục tiêu bằng một lần chạm.",
+		"Menampilkan pintasan Soru terarah dengan satu ketukan.",
+	},
+	{
+		"Shows a reset shortcut that only works outside combat.",
+		"Muestra un atajo de reinicio que solo funciona fuera del combate.",
+		"Mostra um atalho de reinício que funciona apenas fora do combate.",
+		"Affiche un raccourci de réinitialisation utilisable uniquement hors combat.",
+		"Hiển thị phím tắt đặt lại chỉ hoạt động ngoài chiến đấu.",
+		"Menampilkan pintasan reset yang hanya berfungsi di luar pertarungan.",
+	},
+	{
+		"Shows a shortcut for the Sanguine Z boost.",
+		"Muestra un atajo para el impulso Sanguine Z.",
+		"Mostra um atalho para o impulso Sanguine Z.",
+		"Affiche un raccourci pour le boost Sanguine Z.",
+		"Hiển thị phím tắt cho tăng cường Sanguine Z.",
+		"Menampilkan pintasan untuk peningkatan Sanguine Z.",
+	},
+	{
+		"Shows a shortcut for the ragdoll-after-skill feature.",
+		"Muestra un atajo para la función de ragdoll después de una habilidad.",
+		"Mostra um atalho para o recurso de ragdoll após uma habilidade.",
+		"Affiche un raccourci pour la fonction de ragdoll après une compétence.",
+		"Hiển thị phím tắt cho tính năng ragdoll sau kỹ năng.",
+		"Menampilkan pintasan untuk fitur ragdoll setelah skill.",
+	},
+	{
+		"Shows a shortcut for the Diamond M1 boost.",
+		"Muestra un atajo para el impulso Diamond M1.",
+		"Mostra um atalho para o impulso Diamond M1.",
+		"Affiche un raccourci pour le boost Diamond M1.",
+		"Hiển thị phím tắt cho tăng cường Diamond M1.",
+		"Menampilkan pintasan untuk peningkatan Diamond M1.",
+	},
+	{
+		"SMART MACRO VIDEO GUIDE",
+		"GUÍA EN VIDEO DE SMART MACRO",
+		"GUIA EM VÍDEO DO SMART MACRO",
+		"GUIDE VIDÉO DE SMART MACRO",
+		"VIDEO HƯỚNG DẪN SMART MACRO",
+		"PANDUAN VIDEO SMART MACRO",
+		"SMART MACRO VIDEO GUIDE",
+	},
+	{
+		"Video guide link copied!",
+		"¡Enlace de la guía en video copiado!",
+		"Link do guia em vídeo copiado!",
+		"Lien du guide vidéo copié !",
+		"Đã sao chép liên kết video hướng dẫn!",
+		"Tautan panduan video disalin!",
+		"Nakopya ang link ng video guide!",
+	},
+})
+
+local function func14()
+	local tbl10 = {}
+
+	pcall(function()
+		local LocalizationService = game:GetService("LocalizationService")
+
+		if type(LocalizationService.RobloxLocaleId) == "string" then
+			table.insert(tbl10, LocalizationService.RobloxLocaleId)
+		end
+
+		if type(LocalizationService.SystemLocaleId) == "string" then
+			table.insert(tbl10, LocalizationService.SystemLocaleId)
+		end
+	end)
+
+	for _, item4 in ipairs(tbl10) do
+		local str3 = tostring(item4):lower()
+		if str3:match("^es") then
+			return "Spanish"
+		end
+
+		if str3:match("^pt") then
+			return "Portuguese"
+		end
+
+		if str3:match("^fr") then
+			return "French"
+		end
+
+		if str3:match("^vi") then
+			return "Vietnamese"
+		end
+
+		if str3:match("^id") then
+			return "Indonesian"
+		end
+
+		if str3:match("^fil") or str3:match("^tl") then
+			return "Filipino"
+		end
+	end
+	-- more leaks: https://discord.gg/x7YbZeezpm
+
+	return "English"
+end
+
+local function func15()
+	local json = func6("CokeboysLanguage_v1.json")
+
+	if json then
+		local ok, result = pcall(function()
+			return game:GetService("HttpService"):JSONDecode(json)
+		end)
+
+		ok = ok and type(result) == "table" and result.language or nil
+		if tbl2[ok] then
+			return ok
+		end
+	end
+
+	return "Auto"
+end
+
+local result1 = func15()
+cokeboysInterfaceLanguage = result1 == "Auto" and func14() or result1
+local tbl11 = {}
+
+local function cokeboysTranslate(text)
+	if type(text) ~= "string" or cokeboysInterfaceLanguage == "English" then
+		return text
+	end
+	local entry3 = tbl3[cokeboysInterfaceLanguage]
+	if not entry3 then
+		return text
+	end
+	local value13 = entry3[text] or tbl7[text]
+	if value13 then
+		return value13
+	end
+	local match, str4, flag8 = text:match("^(MELEE|FRUIT|SWORD|GUN) M1%s+•%s+(%d+) (ATTACKS?)$")
+	match = match or text:match("^(MELEE|FRUIT|SWORD|GUN) M1$")
+
+	if match then
+		local str5 = match:sub(1, 1) .. match:sub(2):lower()
+		local obj1 = entry3[str5] or str5
+		if str4 then
+			local str6 = flag8 == "ATTACK" and "Attack" or "Attacks"
+			return obj1:upper() .. " M1  •  " .. str4 .. " " .. (entry3[str6] or str6):upper()
+		end
+		return obj1:upper() .. " M1"
+	end
+
+	local match2, str7, str8 = text:match("^(%s*)(.-)(%s*)$")
+
+	if str7 then
+		str7 = entry3[str7] or tbl7[str7]
+	end
+
+	if str7 then
+		return match2 .. str7 .. str8
+	end
+	local tbl12 = tbl5[cokeboysInterfaceLanguage] or {}
+
+	for _, item5 in ipairs(tbl12) do
+		local first1 = item5[1]
+		local second1 = item5[2]
+
+		if type(first1) == "string" and type(second1) == "string" then
+			local str9, flag9 = text:gsub(first1, second1)
+			if flag9 > 0 then
+				return str9
+			end
+		end
+	end
+
+	return text
+end
+
+local function cokeboysSetLanguagePreference(flag10)
+	if not tbl2[flag10] then
+		return false
+	end
+	local flag11 = result1
+	local flag12 = cokeboysInterfaceLanguage
+	result1 = flag10
+	cokeboysInterfaceLanguage = flag10 == "Auto" and func14() or flag10
+	local cokeboysLoadGeneratedTranslation = _G.__CokeboysLoadGeneratedTranslationPack
+
+	if type(cokeboysLoadGeneratedTranslation) == "function" then
+		cokeboysLoadGeneratedTranslation(cokeboysInterfaceLanguage)
+	else
+		func13(cokeboysInterfaceLanguage)
+	end
+	-- more leaks: https://discord.gg/x7YbZeezpm
+
+	getgenv().__CokeboysLanguagePreference = result1
+	getgenv().__CokeboysInterfaceLanguage = cokeboysInterfaceLanguage
+	func7("CokeboysLanguage_v1.json", game:GetService("HttpService"):JSONEncode({ language = result1 }))
+
+	if flag11 ~= result1 or flag12 ~= cokeboysInterfaceLanguage then
+		for _, item6 in ipairs(tbl11) do
+			pcall(item6, cokeboysInterfaceLanguage, flag12, result1)
+		end
+	end
+
+	return true
+end
+
+getgenv().__CokeboysLanguagePreference = result1
+getgenv().__CokeboysInterfaceLanguage = cokeboysInterfaceLanguage
+_G.__CokeboysTranslate = cokeboysTranslate
+_G.__CokeboysLanguageOptions = cokeboysLanguageOptions
+_G.__CokeboysSetLanguagePreference = cokeboysSetLanguagePreference
+
+_G.__CokeboysOnLanguageChanged = function(param4)
+	if type(param4) ~= "function" then
+		return function()
+		end
+	end
+	table.insert(tbl11, param4)
+	local flag13 = true
+
+	return function()
+		if not flag13 then
+			return
+		end
+		flag13 = false
+		local foundAt = table.find(tbl11, param4)
+
+		if foundAt then
+			table.remove(tbl11, foundAt)
+		end
+	end
+end
+
+local function func16()
+	local cokeboysNotificationsDisabled = getgenv().__CokeboysNotificationsDisabled
+	if cokeboysNotificationsDisabled ~= nil then
+		return cokeboysNotificationsDisabled ~= true
+	end
+	local cokeboysNotificationsEnabled = getgenv().__CokeboysNotificationsEnabled
+
+	if cokeboysNotificationsEnabled ~= nil then
+		local cokeboysNotificationsDisabled2 = cokeboysNotificationsEnabled == false
+		getgenv().__CokeboysNotificationsDisabled = cokeboysNotificationsDisabled2
+		getgenv().__CokeboysNotificationsEnabled = nil
+		return not cokeboysNotificationsDisabled2
+	end
+	--[[ 𝚂𝙻 | 𝚂𝚘𝚞𝚛𝚌𝚎 𝙻𝚎𝚊𝚔 :: discord.gg/x7YbZeezpm ]]
+
+	local json = func6("CokeboysConfig_v1.json")
+
+	if json then
+		local ok, result = pcall(function()
+			return game:GetService("HttpService"):JSONDecode(json)
+		end)
+
+		if ok and type(result) == "table" then
+			local cokeboysNotificationsDisabled2 = result.DisableNotifications == true
+
+			if result.DisableNotifications == nil and result.NotificationsEnabled ~= nil then
+				cokeboysNotificationsDisabled2 = result.NotificationsEnabled == false
+			end
+
+			getgenv().__CokeboysNotificationsDisabled = cokeboysNotificationsDisabled2
+			return not cokeboysNotificationsDisabled2
+		end
+	end
+
+	getgenv().__CokeboysNotificationsDisabled = false
+	return true
+end
+
+local genv = getgenv()
+local cokeboysLoaderController = genv.__CokeboysLoaderController
+
+if genv.CokeboysScriptLoaded == true then
+	local cokeboysShowInterface = _G.__CokeboysShowInterface
+
+	if type(cokeboysShowInterface) == "function" then
+		pcall(cokeboysShowInterface)
+	end
+
+	if func16() then
+		pcall(function()
+			game:GetService("StarterGui"):SetCore("SendNotification", { Title = "Cokeboys", Text = "Script is already running!", Duration = 4 })
+		end)
+	end
+
+	return
+end
+
+local now = os.clock()
+local flag14 = type(cokeboysLoaderController) == "table" and cokeboysLoaderController.disposed ~= true and cokeboysLoaderController.ownsLaunch == true
+
+if flag14 then
+	flag14 = now - (tonumber(cokeboysLoaderController.updatedAt) or 0) < 120
+end
+
+if flag14 then
+	if type(cokeboysLoaderController.focus) == "function" then
+		pcall(cokeboysLoaderController.focus, cokeboysLoaderController)
+	end
+
+	return
+end
+
+if type(cokeboysLoaderController) == "table" and type(cokeboysLoaderController.dispose) == "function" then
+	pcall(cokeboysLoaderController.dispose, cokeboysLoaderController, "stale launch replaced")
+end
+
+local cokeboysLoaderController2 = { version = 4, state = "BOOT", purpose = "launch" }
+cokeboysLoaderController2.launchGeneration = (tonumber(genv.__CokeboysLoaderGeneration) or 0) + 1
+cokeboysLoaderController2.validationGeneration = 0
+cokeboysLoaderController2.monitorGeneration = 0
+cokeboysLoaderController2.selectionCommitted = false
+cokeboysLoaderController2.initializationCommitted = false
+cokeboysLoaderController2.resolvedExperience = nil
+cokeboysLoaderController2.authenticatedKey = nil
+cokeboysLoaderController2.cancelled = false
+cokeboysLoaderController2.disposed = false
+cokeboysLoaderController2.ownsLaunch = true
+cokeboysLoaderController2.updatedAt = now
+cokeboysLoaderController2.gui = nil
+cokeboysLoaderController2.blur = nil
+cokeboysLoaderController2.loaderConnections = {}
+cokeboysLoaderController2.activeKey = nil
+genv.__CokeboysLoaderGeneration = cokeboysLoaderController2.launchGeneration
+genv.__CokeboysLoaderController = cokeboysLoaderController2
+genv.__CokeboysLaunchInProgress = true
+
+local tbl13 = {
+	BOOT = { AUTH = true, VALIDATING = true, CANCELLED = true, DISPOSED = true },
+	AUTH = { VALIDATING = true, CANCELLED = true, DISPOSED = true },
+	AUTH_ERROR = { VALIDATING = true, CANCELLED = true, DISPOSED = true },
+	VALIDATING = {
+		AUTH_ERROR = true,
+		MODE_SELECT = true,
+		INITIALIZING = true,
+		READY = true,
+		CANCELLED = true,
+		DISPOSED = true,
+	},
+	MODE_SELECT = { INITIALIZING = true, CANCELLED = true, DISPOSED = true },
+	INITIALIZING = { READY = true, CANCELLED = true, DISPOSED = true },
+	READY = { AUTH = true, SWITCHING = true, DISPOSED = true },
+	SWITCHING = { REVALIDATING = true, CANCELLED = true, DISPOSED = true },
+	REVALIDATING = { INITIALIZING = true, CANCELLED = true, DISPOSED = true },
+	CANCELLED = { DISPOSED = true },
+	DISPOSED = {},
+}
+
+local value14 = nil
+
+cokeboysLoaderController2.isCurrent = function(self)
+	return genv.__CokeboysLoaderController == self and self.disposed ~= true
+end
+
+cokeboysLoaderController2.transition = function(self, state, flag15)
+	if not self:isCurrent() or self.cancelled or self.disposed then
+		return false
+	end
+
+	if flag15 and self.state ~= flag15 then
+		return false
+	end
+
+	if not (tbl13[self.state] and tbl13[self.state][state]) then
+		return false
+	end
+	self.state = state
+	self.updatedAt = os.clock()
+	return true
+end
+
+cokeboysLoaderController2.ownsAttempt = function(obj, flag16, flag17, flag18)
+	return obj:isCurrent() and not obj.cancelled and not obj.disposed and obj.launchGeneration == flag16 and obj.validationGeneration == flag17 and (flag18 == nil or obj.state == flag18)
+end
+
+cokeboysLoaderController2.releaseLaunchOwnership = function(self)
+	self.ownsLaunch = false
+
+	if genv.__CokeboysLoaderController == self then
+		genv.__CokeboysLaunchInProgress = false
+	end
+end
+
+cokeboysLoaderController2.focus = function(obj)
+	obj.updatedAt = os.clock()
+	-- 𝖲𝗈𝗎𝗋𝖼𝖾 𝖫𝖾𝖺𝗄 | https://discord.gg/x7YbZeezpm
+
+	if obj.gui then
+		pcall(function()
+			obj.gui.Enabled = true
+		end)
+	end
+end
+
+_G.__CokeboysCancelLoader = function()
+	if cokeboysLoaderController2:isCurrent() and type(value14) == "function" then
+		value14("cancel requested")
+	end
+end
+
+local value15 = nil
+local value16 = nil
+local cokeboysKeyAccessState = getgenv().__CokeboysKeyAccessState or {}
+getgenv().__CokeboysKeyAccessState = cokeboysKeyAccessState
+
+local function func17()
+	local cokeboysRefreshHeaderKeyStatus = getgenv().__CokeboysRefreshHeaderKeyStatus
+
+	if type(cokeboysRefreshHeaderKeyStatus) == "function" then
+		pcall(cokeboysRefreshHeaderKeyStatus)
+	end
+end
+
+local function func18()
+	cokeboysKeyAccessState.valid = false
+	cokeboysKeyAccessState.permanent = false
+	cokeboysKeyAccessState.expiresAt = nil
+	cokeboysKeyAccessState.checkedAt = os.time()
+	func17()
+end
+
+local function func19(flag19)
+	cokeboysKeyAccessState.valid = true
+	cokeboysKeyAccessState.permanent = flag19 and flag19.permanent == true or false
+	cokeboysKeyAccessState.expiresAt = flag19 and tonumber(flag19.expires_at) or nil
+	cokeboysKeyAccessState.checkedAt = os.time()
+	func17()
+end
+
+local function func20()
+	for _, loaderConnection in ipairs(cokeboysLoaderController2.loaderConnections) do
+		pcall(function()
+			loaderConnection:Disconnect()
+		end)
+	end
+
+	table.clear(cokeboysLoaderController2.loaderConnections)
+end
+
+local function func21()
+	cokeboysLoaderController2.suppressDestroy = true
+	func20()
+
+	if value15 then
+		pcall(function()
+			value15:Destroy()
+		end)
+
+		value15 = nil
+	end
+
+	if value16 then
+		pcall(function()
+			value16:Destroy()
+		end)
+
+		value16 = nil
+	end
+
+	cokeboysLoaderController2.gui = nil
+	cokeboysLoaderController2.blur = nil
+	cokeboysLoaderController2.suppressDestroy = false
+end
+
+local function func22(param5, ...)
+	local cokeboysSpawnRuntimeTask = _G.__CokeboysSpawnRuntimeTask
+	if type(cokeboysSpawnRuntimeTask) == "function" then
+		return cokeboysSpawnRuntimeTask(param5, ...)
+	end
+	return task.spawn(param5, ...)
+end
+
+local function func23(param6, flag20)
+	if cokeboysLoaderController2.disposed then
+		return
+	end
+	cokeboysLoaderController2.validationGeneration = cokeboysLoaderController2.validationGeneration + 1
+	cokeboysLoaderController2.monitorGeneration = cokeboysLoaderController2.monitorGeneration + 1
+	cokeboysLoaderController2.cancelled = true
+	--[=[ Source Leak (SL) ]=] -- discord.gg/x7YbZeezpm
+
+	if cokeboysLoaderController2.state ~= "DISPOSED" then
+		if cokeboysLoaderController2.state ~= "CANCELLED" and tbl13[cokeboysLoaderController2.state].CANCELLED then
+			cokeboysLoaderController2.state = "CANCELLED"
+		end
+
+		cokeboysLoaderController2.state = "DISPOSED"
+	end
+
+	cokeboysLoaderController2.disposed = true
+	cokeboysLoaderController2.updatedAt = os.clock()
+
+	if flag20 ~= false then
+		func21()
+	else
+		func20()
+	end
+
+	cokeboysLoaderController2:releaseLaunchOwnership()
+
+	if genv.__CokeboysLoaderController == cokeboysLoaderController2 then
+		genv.__CokeboysLoaderController = nil
+	end
+end
+
+cokeboysLoaderController2.dispose = function(param7, param8)
+	func23(param8, true)
+end
+
+value14 = function()
+	if not cokeboysLoaderController2:isCurrent() or cokeboysLoaderController2.disposed then
+		return
+	end
+	cokeboysLoaderController2.validationGeneration = cokeboysLoaderController2.validationGeneration + 1
+	func21()
+
+	if cokeboysLoaderController2.purpose == "replace-key" and genv.CokeboysScriptLoaded == true then
+		cokeboysLoaderController2.cancelled = false
+		cokeboysLoaderController2.state = "READY"
+		cokeboysLoaderController2.purpose = nil
+		cokeboysLoaderController2.updatedAt = os.clock()
+		return
+	end
+
+	cokeboysLoaderController2.cancelled = true
+	cokeboysLoaderController2.state = "CANCELLED"
+	cokeboysLoaderController2:releaseLaunchOwnership()
+	cokeboysLoaderController2.state = "DISPOSED"
+	cokeboysLoaderController2.disposed = true
+
+	if genv.__CokeboysLoaderController == cokeboysLoaderController2 then
+		genv.__CokeboysLoaderController = nil
+	end
+end
+
+_G.__CokeboysKeyValidationCleanup = function()
+	func23("runtime cleanup", true)
+	func18()
+end
+
+_G.__CokeboysMarkRuntimeReady = function()
+	if not cokeboysLoaderController2:isCurrent() or cokeboysLoaderController2.state ~= "INITIALIZING" then
+		return false
+	end
+
+	if not cokeboysLoaderController2:transition("READY", "INITIALIZING") then
+		return false
+	end
+	cokeboysLoaderController2.purpose = nil
+	cokeboysLoaderController2:releaseLaunchOwnership()
+	return true
+end
+
+local value17 = nil
+
+local function func24(flag21)
+	func23("key expired", true)
+	func18()
+	func8()
+	local str10 = flag21 or "Your key has expired or been revoked."
+	local value18 = value17
+
+	if type(value18) == "function" then
+		pcall(value18)
+	else
+		getgenv().CokeboysScriptLoaded = false
+	end
+
+	if func16() then
+		pcall(function()
+			game:GetService("StarterGui"):SetCore("SendNotification", {
+				Title = "Cokeboys Key Expired",
+				Text = str10 .. " Script features were disabled. Get a new key and re-execute to continue.",
+				Duration = 8,
+			})
+		end)
+	end
+end
+
+local function func25()
+	error("SL: this block could not be recovered")
+end
+
+local function func26(activeKey)
+	cokeboysLoaderController2.monitorGeneration = cokeboysLoaderController2.monitorGeneration + 1
+	local monitorGeneration = cokeboysLoaderController2.monitorGeneration
+	cokeboysLoaderController2.activeKey = activeKey
+
+	func22(function()
+		while cokeboysLoaderController2:isCurrent() and monitorGeneration == cokeboysLoaderController2.monitorGeneration do
+			task.wait(300)
+			if not cokeboysLoaderController2:isCurrent() or monitorGeneration ~= cokeboysLoaderController2.monitorGeneration then
+				return
+			end
+			local value19, value20, value21 = func25(activeKey)
+			if not cokeboysLoaderController2:isCurrent() or monitorGeneration ~= cokeboysLoaderController2.monitorGeneration then
+				return
+			end
+
+			if value21 then
+				func19(value21)
+			end
+
+			if value19 then
+				func24(value20)
+				return
+			end
+		end
+	end)
+end
+;(function(...) end)(function(...) end)
+
+-- 𝐒𝐨𝐮𝐫𝐜𝐞 𝐋𝐞𝐚𝐤 // discord.gg/x7YbZeezpm
